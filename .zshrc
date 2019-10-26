@@ -85,12 +85,12 @@ alias 4='cd -4'
 alias md='mkdir -p'
 alias rd='rmdir'
 
-alias l='exa -la'
-alias ll='exa -l'
-alias lt='exa -lT'
-alias lat='exa -laT'
-alias ldir='exa -laD'
-alias lnew='exa -lasnew'
+alias l='exa -la --git'
+alias ll='exa -l --git'
+alias lt='exa -laT --level=2 --git'
+alias llt='exa -lT --level=2 --git'
+alias ldir='exa -laD --git'
+alias lnew='exa -lasnew --git'
 
 alias _='sudo '
 
