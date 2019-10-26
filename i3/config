@@ -113,15 +113,15 @@ bindsym $mod+q focus parent
 
 # Define names for default workspaces for which we configure key bindings later on.
 # We use variables to avoid repeating the names in multiple places.
-set $ws1 "I "
-set $ws2 "II "
-set $ws3 "III "
-set $ws4 "IV "
-set $ws5 "V "
-set $ws6 "VI "
-set $ws7 "VII "
-set $ws8 "VIII "
-set $ws9 "IX "
+set $ws1 "1:I "
+set $ws2 "2:II "
+set $ws3 "3:III "
+set $ws4 "4:IV "
+set $ws5 "5:V "
+set $ws6 "6:VI "
+set $ws7 "7:VII "
+set $ws8 "8:VIII "
+set $ws9 "9:IX "
 
 # switch to workspace
 bindsym $mod+ampersand workspace $ws1
@@ -209,6 +209,7 @@ exec_always $HOME/.fehbg
 bar {
 	font pango:DejaVu Sans Mono for Powerline, FontAwesome 9 
 	position top
+	strip_workspace_numbers yes
         status_command i3status-rs $HOME/.config/i3/status.toml
 	colors {
 		separator #ff0000
