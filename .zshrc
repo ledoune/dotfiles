@@ -45,6 +45,11 @@ zplug "MichaelAquilina/zsh-you-should-use"
 zplug "zsh-users/zsh-autosuggestions"
 bindkey '^ ' autosuggest-accept
 
+# interactive git plugin
+zplug "wfxr/forgit"
+# git add commit push all in one command
+zplug "robertzk/send.zsh"
+
 # fuzzy directory completion
 zplug "changyuheng/fz", defer:1
 zplug "rupa/z", use:z.sh
