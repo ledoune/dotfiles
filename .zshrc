@@ -85,8 +85,12 @@ alias 4='cd -4'
 alias md='mkdir -p'
 alias rd='rmdir'
 
-alias l='ls -lah --color'
-alias ll='ls -lh --color'
+alias l='exa -la'
+alias ll='exa -l'
+alias lt='exa -lT'
+alias lat='exa -laT'
+alias ldir='exa -laD'
+alias lnew='exa -lasnew'
 
 alias _='sudo '
 
