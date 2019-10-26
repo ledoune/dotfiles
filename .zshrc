@@ -6,13 +6,14 @@ setopt pushd_minus
 
 # zsh options history
 HISTFILE=/home/doune/.zsh_history
-HISTSIZE=10000
-SAVEHIST=5000
+HISTSIZE=50000
+SAVEHIST=10000
 setopt extended_history
 setopt hist_expire_dups_first
 setopt hist_ignore_dups
 setopt hist_ignore_space
-setopt inc_append_history
+setopt hist_verify
+setopt share_history
 
 # style for completion -- exerpt from oh-my-zsh
 zstyle ':completion:*:*:*:*:*' menu select
@@ -21,6 +22,17 @@ zstyle ':completion::complete:*' use-cache 1
 zstyle ':completion::complete:*' cache-path $ZSH_CACHE_DIR
 zstyle ':completion:*' list-colors ''
 zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#) ([0-9a-z-]#)*=01;34=0=01'
+
+# additionnal key bindings
+if [[ "${terminfo[khome]}" != "" ]]; then
+  bindkey "${terminfo[khome]}" beginning-of-line      # [Home] - Go to beginning of line
+fi
+if [[ "${terminfo[kend]}" != "" ]]; then
+  bindkey "${terminfo[kend]}"  end-of-line            # [End] - Go to end of line
+fi
+if [[ "${terminfo[kdch1]}" != "" ]]; then
+  bindkey "${terminfo[kdch1]}" delete-char            # [Delete] - delete forward
+fi
 
 source $HOME/.zplug/init.zsh
 
@@ -58,5 +70,27 @@ zplug load
 
 path+=("$HOME/bin")
 export PATH
+
+# alias
+alias -g ...='../..'
+alias -g ....='../../..'
+alias -g .....='../../../..'
+
+alias -- -='cd -'
+alias 1='cd -'
+alias 2='cd -2'
+alias 3='cd -3'
+alias 4='cd -4'
+
+alias md='mkdir -p'
+alias rd='rmdir'
+
+alias l='ls -lah --color'
+alias ll='ls -lh --color'
+
+alias _='sudo '
+
+alias h='fc -RI'
+alias updt='trizen -Syu --noconfirm --noedit'
 
 eval "$(starship init zsh)"
