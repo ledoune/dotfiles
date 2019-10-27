@@ -132,6 +132,12 @@ set autoindent
 set smartindent
 set nowrap
 
+set complete-=i
+" removes octal from ctrl-A command
+set nrformats-=octal
+" shorten messages
+set shortmess+=c
+
 " eow characters
 set iskeyword-=.
 set iskeyword-=#
@@ -164,7 +170,7 @@ set switchbuf=useopen,usetab,newtab
 
 " tabs management
 map <leader>tn :tabnew<cr>
-map <leader>to :tabonly<cr>	
+map <leader>to :tabonly<cr>
 map <leader>tc :tabclose<cr>
 map <leader>tm :tabmove
 " tab back and forth
@@ -214,3 +220,75 @@ inoremap $e ""<esc>i
 
 
 " # PLUGINS #
+
+call plug#begin()
+
+" Airline : light status line
+Plug 'vim-airline/vim-airline'
+let g:airline_powerline_fonts = 1
+let g:airline#extensions#tabline#enabled=1
+Plug 'vim-airline/vim-airline-themes'
+let g:airline_theme='solarized'
+let g:airline_solarized_bg='dark'
+
+" CtrlP : fuzzy finder
+Plug 'ctrlpvim/ctrlp.vim'
+" extend it with simple function search
+Plug 'tacahiroy/ctrlp-funky'
+nnoremap <leader>fu :CtrlPFunky<cr>
+" narrow the list down with a word under cursor
+nnoremap <leader>fU :execute 'CtrlPFunky '.expand('<cword>')<cr>
+
+" Auto-pairs : brackets in pair
+Plug 'jiangmiao/auto-pairs'
+
+" Deoplete : completion framework
+Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+let g:deoplete#enable_at_startup=1
+" Rust support
+Plug 'sebastianmarkow/deoplete-rust'
+let g:deoplete#sources#rust#racer_binary='/home/doune/.cargo/bin/racer'
+let g:deoplete#sources#rust#rust_source_path='/home/doune/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/src'
+" Supertab : completion using tab
+Plug 'ervandew/supertab'
+let g:SuperTabClosePreviewOnPopupClose=1
+
+" Neomake : linter
+Plug 'neomake/neomake'
+
+call plug#end()
+
+call neomake#configure#automake('rw')
+
+" neomake signs
+let g:neomake_error_sign = {
+    \ 'text': '',
+    \ 'texthl': 'NeomakeError',
+    \ }
+let g:neomake_warning_sign = {
+    \   'text': '',
+    \   'texthl': 'NeomakeWarning',
+    \ }
+let g:neomake_message_sign = {
+     \   'text': '',
+     \   'texthl': 'NeomakeMessage',                                                                                                
+     \ }
+let g:neomake_info_sign = {
+     \ 'text': 'ℹ',
+     \ 'texthl': 'NeomakeInfo'
+     \ }
+
+" neomake colors
+highlight NeomakeError cterm=bold ctermfg=darkred
+hi NeomakeVirtualtextError cterm=bold ctermfg=darkred
+hi NeomakeWarning cterm=bold ctermfg=white
+hi NeomakeVirtualtextWarning cterm=bold ctermfg=white
+hi clear SignColumn
+" deoplete colors
+hi Pmenu ctermfg=black ctermbg=darkcyan
+hi PmenuSel ctermfg=black ctermbg=cyan
+" errors color
+hi ErrorMsg ctermfg=darkred ctermbg=black
+hi Error ctermfg=darkred ctermbg=black
+" cursorline
+hi CursorLine cterm=none ctermbg=0

@@ -66,15 +66,16 @@ bindkey '^[[B' history-substring-search-down
 
 if ! zplug check --verbose; then
 	printf "Install? [y/N]: "
-	if read -q; then
+    if read -q; then
 		echo; zplug install
-	fi
+    fi
 fi
 
 zplug load
 
-path+=("$HOME/bin")
+path+=('$HOME/bin' '$HOME/.cargo/bin')
 export PATH
+export RUST_SRC_PATH="$(rustc --print sysroot)/lib/rustlib/src/rust/src"
 
 # alias
 alias -g ...='../..'
