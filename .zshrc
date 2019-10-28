@@ -73,7 +73,7 @@ fi
 
 zplug load
 
-path+=('$HOME/bin' '$HOME/.cargo/bin')
+path+=/home/doune/bin
 export PATH
 export RUST_SRC_PATH="$(rustc --print sysroot)/lib/rustlib/src/rust/src"
 
@@ -104,3 +104,11 @@ alias h='fc -RI'
 alias updt='trizen -Syu --noconfirm --noedit'
 
 eval "$(starship init zsh)"
+
+# ssh authentification using gpg key
+unset SSH_AGENT_PID
+if [ "${gnupg_SSH_AUTH_SOCK_by:-0}" -ne $$ ]; then
+  export SSH_AUTH_SOCK="$(gpgconf --list-dirs agent-ssh-socket)"
+fi
+export GPG_TTY=$(tty)
+gpg-connect-agent updatestartuptty /bye >/dev/null
