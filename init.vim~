@@ -198,7 +198,7 @@ vnoremap > >gv
 " adjust viewports to the same size
 map <leader>= <c-w>=
 
-" map <leader>ff to display all lines with keyword under cursor and ask which one to jump to
+" Map <leader>ff to display all lines with keyword under cursor and ask which one to jump to
 nmap <leader>ff [I:let nr = input("Which one: ")<Bar>exe "normal " . nr ."[\t"<CR>
 
 " move a line of text using alt+[ui]
@@ -210,7 +210,7 @@ vmap <M-u> :m'<-2<cr>`>my`<mzgv`yo`z
 " toggle spell checking
 map <leader>ss :setlocal spell!<cr>
 
-" autocomplete of (, [, {, ', "
+" auto complete of (, ", ', [
 " inoremap $1 ()<esc>i
 " inoremap $2 []<esc>i
 " inoremap $3 {}<esc>i
@@ -218,6 +218,9 @@ map <leader>ss :setlocal spell!<cr>
 " inoremap $q ''<esc>i
 " inoremap $e ""<esc>i
 " done by autopair
+
+
+" # FUNCTIONS #
 
 
 " # PLUGINS #
@@ -265,19 +268,15 @@ nmap <leader>hh <Plug>(GitGutterNextHunk)
 nmap <leader>hH <Plug>(GitGutterPrevHunk)
 nmap <leader>hc <Plug>(GitGutterStageHunk)
 nmap <leader>hu <Plug>(GitGutterUndoHunk)
-nmap <leader>hp :call OpenGGPreview()<cr>
+nmap <leader>hp <Plug>(GitGutterPreviewHunk)
 let g:gitgutter_preview_win_floating=0
-" auto close preview on cursor move
-au! CursorMoved * call s:ClosePreview()
+
 " faster refresh
 set updatetime=100
 
 call plug#end()
 
 call neomake#configure#automake('rw')
-
-
-" # COLORS AND SIGNS #
 
 " neomake signs
 let g:neomake_error_sign = {
@@ -300,8 +299,8 @@ let g:neomake_info_sign = {
 " neomake colors
 highlight NeomakeError cterm=bold ctermfg=darkred
 hi NeomakeVirtualtextError cterm=bold ctermfg=darkred
-hi NeomakeWarning cterm=bold ctermfg=7
-hi NeomakeVirtualtextWarning cterm=bold ctermfg=7
+hi NeomakeWarning cterm=bold ctermfg=white
+hi NeomakeVirtualtextWarning cterm=bold ctermfg=white
 hi clear SignColumn
 " deoplete colors
 hi Pmenu ctermfg=black ctermbg=darkcyan
@@ -311,36 +310,3 @@ hi ErrorMsg ctermfg=darkred ctermbg=black
 hi Error ctermfg=darkred ctermbg=black
 " cursorline
 hi CursorLine cterm=none ctermbg=0
-" gitgutter colors
-hi GitGutterAdd ctermfg=darkgreen
-hi GitGutterChange ctermfg=7
-hi GitGutterDelete ctermfg=darkred
-hi diffAdded ctermfg=darkgreen
-hi diffChanged ctermfg=7
-hi diffRemoved ctermfg=darkred
-
-
-" # FUNCTIONS #
-
-" close preview if open
-function! s:ClosePreview()
-    if exists('b:gg_close_preview') && b:gg_close_preview
-        let preview=0
-        for bufnum in tabpagebuflist()
-            if getwinvar(bufwinnr(bufnum), '&previewwindow')
-                let preview=1
-                break
-            endif
-        endfor
-        if preview
-            pc
-        endif
-    endif
-    silent! unlet b:gg_close_preview
-endfunction
-
-" opens gitgutter preview window and makes it close on cursor move
-function! OpenGGPreview()
-    let b:gg_close_preview=1
-    exec 'GitGutterPreviewHunk'
-endfunction
