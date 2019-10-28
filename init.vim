@@ -161,9 +161,6 @@ map <C-j> <C-W>j
 map <C-k> <C-W>k
 map <C-l> <C-W>l
 
-" close all buffers
-map <leader>ba :bufdo bd<cr>
-
 " buffer navigation
 map <leader>j :bnext<cr>
 map <leader>k :bprevious<cr>
@@ -272,6 +269,25 @@ au! CursorMoved * call s:ClosePreview()
 " faster refresh
 set updatetime=100
 
+" NerdTree : file explorer
+Plug 'scrooloose/nerdtree'
+map <c-n> :NERDTreeToggle<cr>
+" auto open if no file specified
+autocmd StdinReadPre * let s:std_in=1
+autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
+" auto close if last buffer open
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+
+" Script to close all buffer but the current one
+Plug 'vim-scripts/BufOnly.vim'
+nmap <leader>bo :BufOnly<cr>
+" BBye : close buffers without messing with layout
+Plug 'moll/vim-bbye'
+nnoremap <leader>q :Bdelete<cr>
+nnoremap <leader>bb :bufdo Bdelete<cr>
+nnoremap <leader>ba :bufdo bd<cr>
+nnoremap <leader>be :BufOnlyLayout<cr>
+
 call plug#end()
 
 call neomake#configure#automake('rw')
@@ -344,3 +360,46 @@ function! OpenGGPreview()
     let b:gg_close_preview=1
     exec 'GitGutterPreviewHunk'
 endfunction
+
+" deletes all buffer except the current one, without messing with layout
+function! BufOnlyLayout(bang, buffer)
+    if a:buffer == ""
+        let buffer = bufnr('%')
+    elseif (a:buffer + 0) > 0
+        let buffer = bufnr(a:buffer + 0)
+    else
+        let buffer = bufnr(a:buffer)
+    endif
+
+    if buffer == -1
+        echohl ErrorMsg
+        echomsg "No matching buffer for" a:buffer
+        echohl None
+        return
+    endif
+
+    let last_buffer = bufnr('$')
+    let n = 1
+    let warn_modified = 0
+
+    while n <= last_buffer
+        if n != buffer && buflisted(n)
+            if getbufvar(n, "&modified") && empty(a:bang)
+                let warn_modified = 1
+            else
+                exec "Bdelete".a:bang. " ".n
+            endif
+        endif
+        let n = n + 1
+    endwhile
+
+    if warn_modified
+        echohl ErrorMsg
+        echomsg "E89: No write since last change for some buffers (add ! to override)"
+        echohl None
+    endif
+endfunction
+
+" command with 0 or 1 arguments, using buffer names for completion, and can take a bang modifier
+command! -nargs=? -complete=buffer -bang BufOnlyLayout
+            \ :call BufOnlyLayout('<bang>','<args>')
