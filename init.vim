@@ -34,8 +34,10 @@ nmap <leader>w :w!<cr>
 " sudo save
 command! W w !sudo tee % > /dev/null
 
-" no backups and persistent undo
-set nobackup
+" backup/swap files and persistent undo
+set backupdir=$HOME/.nvim/tmp//,.
+set directory=$HOME/.nvim/tmp//,.
+set backup
 if has('persistent_undo')
     set undofile
     set undolevels=1000
