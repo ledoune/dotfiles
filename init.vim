@@ -34,8 +34,8 @@ nmap <leader>w :w!<cr>
 " sudo save
 command! W w !sudo tee % > /dev/null
 
-" backups and persistent undo
-set backup
+" no backups and persistent undo
+set nobackup
 if has('persistent_undo')
     set undofile
     set undolevels=1000
@@ -140,6 +140,8 @@ set complete-=i
 set nrformats-=octal
 " shorten messages
 set shortmess+=c
+" remove auto comment insertion
+autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
 
 " eow characters
 set iskeyword-=.
@@ -277,6 +279,8 @@ autocmd StdinReadPre * let s:std_in=1
 autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
 " auto close if last buffer open
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+" NerdTree-git-plugin
+Plug 'Xuyuanp/nerdtree-git-plugin'
 
 " Script to close all buffer but the current one
 Plug 'vim-scripts/BufOnly.vim'
@@ -287,6 +291,28 @@ nnoremap <leader>q :Bdelete<cr>
 nnoremap <leader>bb :bufdo Bdelete<cr>
 nnoremap <leader>ba :bufdo bd<cr>
 nnoremap <leader>be :BufOnlyLayout<cr>
+
+" NERD Commenter : easy comments
+Plug 'scrooloose/nerdcommenter'
+let g:NERDSpaceDelims=1
+let g:NERDCompactSexyComs=1
+let g:NERDCommentEmptyLines=1
+let g:NERDTrimTrailingWhiteSpace=1
+
+" Tabular : easy code align
+Plug 'godlygeek/tabular'
+nmap <leader>a= :Tabularize /=<cr>
+vmap <leader>a= :Tabularize /=<cr>
+nmap <leader>a: :Tabularize /:\zs<cr>
+nmap <leader>a: :Tabularize /:\zs<cr>
+
+" UndoTree : visual undo tree
+Plug 'mbbill/undotree'
+nnoremap <c-u> :UndotreeToggle<cr>
+let g:undotree_WindowLayout=3
+let g:undotree_SetFocusWhenToggle=1
+let g:undotree_HighlightChangedText=0
+let g:undotree_DiffAutoOpen=1
 
 call plug#end()
 
