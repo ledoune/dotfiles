@@ -29,7 +29,7 @@ set autoread
 let mapleader = " "
 
 " fast saving
-nmap <leader>w :w!<cr>
+nnoremap <leader>w :w!<cr>
 
 " sudo save
 command! W w !sudo tee % > /dev/null
@@ -113,7 +113,7 @@ set virtualedit=onemore
 
 " restore state from last edit session
 au BufWinLeave ?* mkview
-au BufWinEnter ?* silent loadview
+au BufRead ?* silent loadview
 " avoid this behavior for git commits
 au FileType gitcommit au! BufEnter COMMIT_EDITMSG call setpos('.', [0,1,1,0])
 " don't change cwd
@@ -154,62 +154,62 @@ set iskeyword-=_
 " # KEY BINDINGS #
 
 " remap search to space
-map <leader><leader> /
+nnoremap <leader><leader> /
 
 " disable highlight
-map <silent> <leader><cr> :noh<cr>
+nnoremap <silent> <leader><cr> :noh<cr>
 
 " move between windows
-map <C-h> <C-W>h
-map <C-j> <C-W>j
-map <C-k> <C-W>k
-map <C-l> <C-W>l
+noremap <C-h> <C-W>h
+noremap <C-j> <C-W>j
+noremap <C-k> <C-W>k
+noremap <C-l> <C-W>l
 
 " buffer navigation
-map <leader>j :bnext<cr>
-map <leader>k :bprevious<cr>
+nnoremap <leader>j :bnext<cr>
+nnoremap <leader>k :bprevious<cr>
 
 " buffer behavior for quickfix commands
 set switchbuf=useopen,usetab,newtab
 
 " tabs management
-map <leader>tn :tabnew<cr>
-map <leader>to :tabonly<cr>
-map <leader>tc :tabclose<cr>
-map <leader>tm :tabmove
+nnoremap <leader>tn :tabnew<cr>
+nnoremap <leader>to :tabonly<cr>
+nnoremap <leader>tc :tabclose<cr>
+nnoremap <leader>tm :tabmove
 " tab back and forth
 let g:lasttab=1
-nmap <leader>tl :exe "tabn ".g:lasttab<cr>
+nnoremap <leader>tl :exe "tabn ".g:lasttab<cr>
 au TabLeave * let g:lasttab=tabpagenr()
 " tab with cwd for current buffer
-map <leader>te :tabedit <c-r>=expand("%:p:h")<cr>/
+nnoremap <leader>te :tabedit <c-r>=expand("%:p:h")<cr>/
 " switch cwd to current buffer
-map <leader>cd :cd %:p:h<cr>:pwd<cr>
+nnoremap <leader>cd :cd %:p:h<cr>:pwd<cr>
 
 " remap 0 to first non blank char
-map 0 ^
+nnoremap 0 ^
 
 " find merge conflict markers
-map <leader>fc /\v^[<\|=>]{7}( .*\|$)<CR>
+nnoremap <leader>fc /\v^[<\|=>]{7}( .*\|$)<CR>
 
 " visual shifting
 vnoremap < <gv
 vnoremap > >gv
 
 " adjust viewports to the same size
-map <leader>= <c-w>=
+noremap <leader>= <c-w>=
 
 " map <leader>ff to display all lines with keyword under cursor and ask which one to jump to
-nmap <leader>ff [I:let nr = input("Which one: ")<Bar>exe "normal " . nr ."[\t"<CR>
+nnoremap <leader>ff [I:let nr = input("Which one: ")<Bar>exe "normal " . nr ."[\t"<CR>
 
 " move a line of text using alt+[ui]
-nmap <M-u> mz:m+<cr>`z
-nmap <M-i> mz:m-2<cr>`z
-vmap <M-u> :m'>+<cr>`<my`>mzgv`yo`z
-vmap <M-u> :m'<-2<cr>`>my`<mzgv`yo`z
+nnoremap <M-u> mz:m+<cr>`z
+nnoremap <M-i> mz:m-2<cr>`z
+vnoremap <M-u> :m'>+<cr>`<my`>mzgv`yo`z
+vnoremap <M-u> :m'<-2<cr>`>my`<mzgv`yo`z
 
 " toggle spell checking
-map <leader>ss :setlocal spell!<cr>
+nnoremap <leader>ss :setlocal spell!<cr>
 
 " autocomplete of (, [, {, ', "
 " inoremap $1 ()<esc>i
@@ -260,13 +260,13 @@ Plug 'neomake/neomake'
 
 " GitGutter : show git diff in the sign column
 Plug 'airblade/vim-gitgutter'
-nmap <leader>ht :GitGutterToggle<cr>
-nmap <leader>hb :GitGutterBufferToggle<cr>
-nmap <leader>hh <Plug>(GitGutterNextHunk)
-nmap <leader>hH <Plug>(GitGutterPrevHunk)
-nmap <leader>hc <Plug>(GitGutterStageHunk)
-nmap <leader>hu <Plug>(GitGutterUndoHunk)
-nmap <leader>hp :call OpenGGPreview()<cr>
+nnoremap <leader>ht :GitGutterToggle<cr>
+nnoremap <leader>hb :GitGutterBufferToggle<cr>
+nnoremap <leader>hh <Plug>(GitGutterNextHunk)
+nnoremap <leader>hH <Plug>(GitGutterPrevHunk)
+nnoremap <leader>hc <Plug>(GitGutterStageHunk)
+nnoremap <leader>hu <Plug>(GitGutterUndoHunk)
+nnoremap <leader>hp :call OpenGGPreview()<cr>
 let g:gitgutter_preview_win_floating=0
 " auto close preview on cursor move
 au! CursorMoved * call s:ClosePreview()
@@ -275,7 +275,7 @@ set updatetime=100
 
 " NerdTree : file explorer
 Plug 'scrooloose/nerdtree'
-map <c-n> :NERDTreeToggle<cr>
+nnoremap <c-n> :NERDTreeToggle<cr>
 " auto open if no file specified
 autocmd StdinReadPre * let s:std_in=1
 autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
@@ -286,7 +286,7 @@ Plug 'Xuyuanp/nerdtree-git-plugin'
 
 " Script to close all buffer but the current one
 Plug 'vim-scripts/BufOnly.vim'
-nmap <leader>bo :BufOnly<cr>
+nnoremap <leader>bo :BufOnly<cr>
 " BBye : close buffers without messing with layout
 Plug 'moll/vim-bbye'
 nnoremap <leader>q :Bdelete<cr>
@@ -303,10 +303,10 @@ let g:NERDTrimTrailingWhiteSpace=1
 
 " Tabular : easy code align
 Plug 'godlygeek/tabular'
-nmap <leader>a= :Tabularize /=<cr>
-vmap <leader>a= :Tabularize /=<cr>
-nmap <leader>a: :Tabularize /:\zs<cr>
-nmap <leader>a: :Tabularize /:\zs<cr>
+nnoremap <leader>a= :Tabularize /=<cr>
+vnoremap <leader>a= :Tabularize /=<cr>
+nnoremap <leader>a: :Tabularize /:\zs<cr>
+nnoremap <leader>a: :Tabularize /:\zs<cr>
 
 " UndoTree : visual undo tree
 Plug 'mbbill/undotree'
@@ -315,6 +315,53 @@ let g:undotree_WindowLayout=3
 let g:undotree_SetFocusWhenToggle=1
 let g:undotree_HighlightChangedText=0
 let g:undotree_DiffAutoOpen=1
+
+" YankRing : yank history
+Plug 'vim-scripts/YankRing.vim'
+let g:yankring_min_element_length=2
+let g:yankring_clipboard_monitor=0
+let g:yankring_replace_n_pkey='<leader>p'
+let g:yankring_replace_n_nkey='<leader>n'
+nnoremap <c-y> :YRShow<cr>
+
+" Tagbar : shows the structure on the current file in a split window
+Plug 'majutsushi/tagbar'
+nnoremap <c-t> :TagbarToggle<cr>
+let g:tagbar_autofocus=1
+let g:tagbar_type_rust = {
+  \ 'ctagsbin' : '/usr/bin/ctags',
+  \ 'ctagstype' : 'rust',
+  \ 'kinds' : [
+      \ 'n:modules',
+      \ 's:structures:1',
+      \ 'i:interfaces',
+      \ 'c:implementations',
+      \ 'f:functions:1',
+      \ 'g:enumerations:1',
+      \ 't:type aliases:1:0',
+      \ 'v:constants:1:0',
+      \ 'M:macros:1',
+      \ 'm:fields:1:0',
+      \ 'e:enum variants:1:0',
+      \ 'P:methods:1',
+  \ ],
+  \ 'sro': '::',
+  \ 'kind2scope' : {
+      \ 'n': 'module',
+      \ 's': 'struct',
+      \ 'i': 'interface',
+      \ 'c': 'implementation',
+      \ 'f': 'function',
+      \ 'g': 'enum',
+      \ 't': 'typedef',
+      \ 'v': 'variable',
+      \ 'M': 'macro',
+      \ 'm': 'field',
+      \ 'e': 'enumerator',
+      \ 'P': 'method',
+  \ },
+\ }
+
 
 call plug#end()
 
@@ -362,6 +409,8 @@ hi GitGutterDelete ctermfg=darkred
 hi diffAdded ctermfg=darkgreen
 hi diffChanged ctermfg=7
 hi diffRemoved ctermfg=darkred
+" tagbar highlight color for current tag
+hi TagbarHighlight cterm=bold ctermfg=15 ctermbg=8
 
 
 " # FUNCTIONS #
