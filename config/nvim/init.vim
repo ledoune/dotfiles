@@ -153,6 +153,9 @@ set iskeyword-=_
 
 " # KEY BINDINGS #
 
+" reload all buffers
+nnoremap <F5> :checktime<CR>
+
 " remap search to space
 nnoremap <leader><leader> /
 

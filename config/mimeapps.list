@@ -1,0 +1,7 @@
+
+[Default Applications]
+image/png=firefox-nightly.desktop
+application/pdf=firefox-nightly.desktop
+image/bmp=firefox-nightly.desktop
+image/jpeg=firefox-nightly.desktop
+image/tiff=firefox-nightly.desktop
