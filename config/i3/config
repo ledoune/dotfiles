@@ -136,6 +136,8 @@ bindsym $mod+egrave workspace $ws7
 bindsym $mod+underscore workspace $ws8
 bindsym $mod+ccedilla workspace $ws9
 
+bindsym $mod+twosuperior [urgent=latest] focus
+
 # move focused container to workspace
 bindsym $mod+Shift+1 move container to workspace $ws1; workspace $ws1
 bindsym $mod+Shift+eacute move container to workspace $ws2; workspace $ws2

@@ -365,6 +365,9 @@ let g:tagbar_type_rust = {
   \ },
 \ }
 
+" sudo edit
+Plug 'lambdalisue/suda.vim'
+let g:suda_smart_edit=1
 
 call plug#end()
 
