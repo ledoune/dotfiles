@@ -41,9 +41,9 @@
     "path_aliasFile": "",
     "path_shellCommand": "~/.dmenuEextended_shellCommand.sh",
     "prompt": "",
-    "scan_hidden_folders": false,
-    "terminal": "xterm",
-    "terminal_editor": "vim",
+    "scan_hidden_folders": true,
+    "terminal": "kitty",
+    "terminal_editor": "nvim",
     "valid_extensions": [
         "py",
         "svg",

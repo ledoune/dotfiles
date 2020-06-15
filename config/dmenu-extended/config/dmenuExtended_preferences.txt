@@ -7,7 +7,7 @@
     "filter_binaries": false,
     "follow_symlinks": false,
     "frequently_used": 1,
-    "global_ignore_folders": [],
+    "global_ignore_folders": ["Windaube"],
     "ignore_folders": [],
     "include_applications": true,
     "include_binaries": false,
@@ -33,12 +33,8 @@
         "-l",
         "8"
     ],
-    "password_helper": [
-        "zenity",
-        "--password",
-        "--title={prompt}"
-    ],
-    "path_aliasFile": "",
+    "password_helper": "",
+    "path_aliasFile": "~/.zshrc",
     "path_shellCommand": "~/.dmenuEextended_shellCommand.sh",
     "prompt": "",
     "scan_hidden_folders": true,

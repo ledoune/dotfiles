@@ -149,7 +149,7 @@ autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
 set iskeyword-=.
 set iskeyword-=#
 set iskeyword-=-
-" set iskeyword-=_
+set iskeyword-=_
 
 " # KEY BINDINGS #
 
@@ -368,9 +368,6 @@ let g:tagbar_type_rust = {
 " sudo edit
 Plug 'lambdalisue/suda.vim'
 let g:suda_smart_edit=1
-
-" TOML
-Plug 'cespare/vim-toml'
 
 call plug#end()
 

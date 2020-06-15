@@ -117,6 +117,7 @@ zplug load
 path+=/home/doune/bin
 export PATH
 export RUST_SRC_PATH="$(rustc --print sysroot)/lib/rustlib/src/rust/src"
+export EDITOR=nvim
 
 # alias
 alias -g ...='../..'
@@ -144,12 +145,16 @@ alias _='sudo '
 alias h='fc -RI'
 alias updt='trizen -Syu --noconfirm --noedit'
 
+alias matlab='xhost +local:root && sudo docker run -it -e DISPLAY -v /tmp/.X11-unix/:/tmp/.X11-unix:rw -v /home/doune/Documents/ENSSAT/matlab/:/home/moi:rw --rm enssat/matlab "" && xhost -local:root'
+alias pulseffectsd='pulseeffects --gapplication-service'
+
 eval "$(starship init zsh)"
 
+unsetopt BEEP
 # ssh authentification using gpg key
 unset SSH_AGENT_PID
 if [ "${gnupg_SSH_AUTH_SOCK_by:-0}" -ne $$ ]; then
-  export SSH_AUTH_SOCK="$(gpgconf --list-dirs agent-ssh-socket)"
+    export SSH_AUTH_SOCK="$(gpgconf --list-dirs agent-ssh-socket)"
 fi
 export GPG_TTY=$(tty)
 gpg-connect-agent updatestartuptty /bye >/dev/null

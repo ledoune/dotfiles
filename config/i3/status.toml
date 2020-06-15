@@ -17,13 +17,17 @@ critical_fg="#dc322f"
 [icons]
 name = "awesome"
 
-[[block]]
-block = "focused_window"
-max_width = 48
+# [[block]]
+# block = "focused_window"
+# max_width = 48
 
 [[block]]
 block = "music"
 buttons = ["play", "next"]
+
+[[block]]
+block = "keyboard_layout"
+driver = "kbddbus"
 
 [[block]]
 block = "disk_space"
@@ -33,7 +37,7 @@ info_type = "available"
 unit = "GB"
 interval = 20
 warning = 10
-alert = 5 
+alert = 5
 
 [[block]]
 block = "disk_space"
@@ -50,7 +54,7 @@ block = "net"
 device = "enp34s0"
 speed_up = false
 speed_down = true
-interval = 60
+interval = 5
 
 [[block]]
 block = "memory"

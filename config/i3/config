@@ -57,11 +57,11 @@ bindsym XF86AudioRaiseVolume exec pactl set-sink-volume 2 +5%
 bindsym XF86AudioLowerVolume exec pactl set-sink-volume 2 -5%
 
 # start applications
-bindsym $mod+F2 exec firefox-nightly
+bindsym $mod+F2 exec firefox
 bindsym $mod+F3 exec thunderbird
 
 # screen cap
-bindsym --release $mod+s exec scrot -s '%Y-%m-%d_%wx%h.png' -e 'mv $f $HOME/Documents/Screenshots/'
+bindsym --release $mod+s exec scrot -s '%Y%m%d_%H%M%S.png' -e 'mv $f ~/Documents/screenshots/'
 
 # change focus
 bindsym $mod+h focus left
@@ -203,9 +203,11 @@ mode "resize" {
 bindsym $mod+r mode "resize"
 
 exec --no-startup-id i3-msg 'workspace $ws1; exec kitty; workspace $ws1'
-exec --no-startup-id i3-msg 'workspace $ws2; exec firefox-nightly; workspace $ws1'
-exec --no-startup-id i3-msg 'workspace $ws3; exec spotify; workspace $ws1'
+exec --no-startup-id i3-msg 'workspace $ws2; exec firefox; workspace $ws1'
 exec --no-startup-id i3-msg 'workspace $ws4; exec thunderbird; workspace $ws1'
+exec --no-startup-id i3-msg 'workspace $ws3; exec spotify; workspace $ws1'
+exec --no-startup-id pulseeffects --gapplication-service
+exec --no-startup-id kbdd
 
 exec_always xset -b
 exec_always xset dpms 0 0 0
