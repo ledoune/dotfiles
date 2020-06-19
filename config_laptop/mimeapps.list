@@ -1,0 +1,7 @@
+
+[Default Applications]
+image/png=firefox.desktop
+application/pdf=firefox.desktop
+image/bmp=firefox.desktop
+image/jpeg=firefox.desktop
+image/tiff=firefox.desktop
