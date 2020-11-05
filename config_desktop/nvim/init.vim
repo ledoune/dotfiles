@@ -36,6 +36,7 @@ Plug 'vim-scripts/YankRing.vim'                     " copy paste history
 Plug 'majutsushi/tagbar'                            " ctags
 Plug 'lambdalisue/suda.vim'                         " edit files that need sudo rights
 Plug 'cespare/vim-toml'                             " toml syntax highlighting
+Plug 'JuliaEditorSupport/julia-vim'                 " julia vim
 
 call plug#end()
 "}}}
@@ -167,9 +168,14 @@ nnoremap <leader>fU :execute 'CtrlPFunky '.expand('<cword>')<cr>
 " CoC
 " tab to trigger completion with character ahead and navigate.
 inoremap <silent><expr> <tab>
-    \ pumvisible() ? "\<C-n>" :
+    \ pumvisible() ? coc#_select_confirm() :
+    \ coc#expandableOrJumpable() ?
+    \ "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" :
     \ <SID>check_back_space() ? "\<TAB>" :
     \ coc#refresh()
+    " \ pumvisible() ? "\<C-n>" :
+    " \ <SID>check_back_space() ? "\<TAB>" :
+    " \ coc#refresh()
 inoremap <expr><s-tab> pumvisible() ? "\<C-p>" : "\<C-h>"
 " navigate diagnostics
 nmap <silent> [g <Plug>(coc-diagnostics-prev)
@@ -364,8 +370,24 @@ let g:tagbar_type_rust = {
   \ },
 \ }
 
+let g:tagbar_type_julia = {
+    \ 'ctagstype' : 'julia',
+    \ 'kinds'     : [
+        \ 't:struct', 'f:function', 'm:macro', 'c:const']
+    \ }
+
 " sudo edit
 let g:suda_smart_edit=1
+
+" coc
+let g:coc_snippet_next='<tab>'
+
+" julia-vim
+let g:julia_indent_align_import=0
+let g:julia_indent_align_brackets=0
+let g:latex_to_unicode_tab=0
+let g:latex_to_unicode_suggestions=0
+let g:latex_to_unicode_auto=1
 "}}}
 
 " Helper functions "{{{

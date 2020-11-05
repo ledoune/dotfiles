@@ -1,0 +1,31 @@
+add_newline = false
+
+[directory]
+truncation_length = 5
+truncation_symbol = ".../"
+truncate_to_repo = false
+read_only=""
+
+[docker_context]
+symbol = " "
+
+[git_commit]
+tag_symbol = " "
+
+[golang]
+symbol = " "
+
+[java]
+symbol = " "
+
+[julia]
+symbol = " "
+
+[lua]
+symbol = " "
+
+[package]
+symbol = " "
+
+[rust]
+symbol = " "
