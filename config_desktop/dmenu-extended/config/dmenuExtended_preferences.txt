@@ -29,7 +29,7 @@
         "-sb",
         "#002731",
         "-fn",
-        "DejaVu Sans Mono",
+        "DejaVuSansMono Nerd Mono:size=9.5",
         "-l",
         "8"
     ],
