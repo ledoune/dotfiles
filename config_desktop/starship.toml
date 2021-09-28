@@ -4,7 +4,7 @@ add_newline = false
 truncation_length = 5
 truncation_symbol = ".../"
 truncate_to_repo = false
-read_only=""
+read_only=" "
 
 [docker_context]
 symbol = " "

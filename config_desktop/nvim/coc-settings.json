@@ -25,5 +25,6 @@
         "snippet": "\ue60b",
         "typeParameter": "\uf728",
         "default": "\uf29c"
-    }
+    },
+    "rust-analyzer.updates.channel" : "nightly"
 }

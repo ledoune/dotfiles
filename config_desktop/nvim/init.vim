@@ -19,11 +19,14 @@ Plug 'ctrlpvim/ctrlp.vim'                           " full path fuzzy finder
 Plug 'tacahiroy/ctrlp-funky'                        " function navigator for languages without ctags configured
 " Plug 'jiangmiao/auto-pairs'                       " auto brackets, quotes, etc matching
 Plug 'Raimondi/delimitMate'                         " auto brackets, quotes, etc matching
+Plug 'Yggdroot/indentline'                          " vertical line for indentation levels
+Plug 'lukas-reineke/indent-blankline.nvim'          " indent blanklines
 " Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }     " completion engine - replaced by coc
 " Plug 'sebastianmarkow/deoplete-rust'                              " completion for rust - replaced by coc
 " Plug 'ervandew/supertab'                                          " completion using tab - replaced by coc
 " Plug 'neomake/neomake'                                            " linter - replaced by coc
 Plug 'neoclide/coc.nvim', { 'branch': 'release' }   " completion engine inspired by VSCode extensions
+Plug 'SirVer/ultisnips'                             " snippets engine
 Plug 'airblade/vim-gitgutter'                       " shows git diff in the gutter
 Plug 'scrooloose/nerdtree'                          " file explorer
 Plug 'Xuyuanp/nerdtree-git-plugin'                  " git support for nerdtree
@@ -37,6 +40,7 @@ Plug 'majutsushi/tagbar'                            " ctags
 Plug 'lambdalisue/suda.vim'                         " edit files that need sudo rights
 Plug 'cespare/vim-toml'                             " toml syntax highlighting
 Plug 'JuliaEditorSupport/julia-vim'                 " julia vim
+Plug 'rust-lang/rust.vim'                           " rust syntax highlighting and ctags
 
 call plug#end()
 "}}}
@@ -338,39 +342,39 @@ let g:yankring_replace_n_nkey='<leader>n'
 
 " Tagbar : shows the structure on the current file in a split window
 let g:tagbar_autofocus=1
-let g:tagbar_type_rust = {
-  \ 'ctagsbin' : '/usr/bin/ctags',
-  \ 'ctagstype' : 'rust',
-  \ 'kinds' : [
-      \ 'n:modules',
-      \ 's:structures:1',
-      \ 'i:interfaces',
-      \ 'c:implementations',
-      \ 'f:functions:1',
-      \ 'g:enumerations:1',
-      \ 't:type aliases:1:0',
-      \ 'v:constants:1:0',
-      \ 'M:macros:1',
-      \ 'm:fields:1:0',
-      \ 'e:enum variants:1:0',
-      \ 'P:methods:1',
-  \ ],
-  \ 'sro': '::',
-  \ 'kind2scope' : {
-      \ 'n': 'module',
-      \ 's': 'struct',
-      \ 'i': 'interface',
-      \ 'c': 'implementation',
-      \ 'f': 'function',
-      \ 'g': 'enum',
-      \ 't': 'typedef',
-      \ 'v': 'variable',
-      \ 'M': 'macro',
-      \ 'm': 'field',
-      \ 'e': 'enumerator',
-      \ 'P': 'method',
-  \ },
-\ }
+" let g:tagbar_type_rust = {
+  " \ 'ctagsbin' : '/usr/bin/ctags',
+  " \ 'ctagstype' : 'rust',
+  " \ 'kinds' : [
+      " \ 'n:modules',
+      " \ 's:structures:1',
+      " \ 'i:interfaces',
+      " \ 'c:implementations',
+      " \ 'f:functions:1',
+      " \ 'g:enumerations:1',
+      " \ 't:type aliases:1:0',
+      " \ 'v:constants:1:0',
+      " \ 'M:macros:1',
+      " \ 'm:fields:1:0',
+      " \ 'e:enum variants:1:0',
+      " \ 'P:methods:1',
+  " \ ],
+  " \ 'sro': '::',
+  " \ 'kind2scope' : {
+      " \ 'n': 'module',
+      " \ 's': 'struct',
+      " \ 'i': 'interface',
+      " \ 'c': 'implementation',
+      " \ 'f': 'function',
+      " \ 'g': 'enum',
+      " \ 't': 'typedef',
+      " \ 'v': 'variable',
+      " \ 'M': 'macro',
+      " \ 'm': 'field',
+      " \ 'e': 'enumerator',
+      " \ 'P': 'method',
+  " \ },
+" \ }
 
 let g:tagbar_type_julia = {
     \ 'ctagstype' : 'julia',
@@ -383,6 +387,10 @@ let g:suda_smart_edit=1
 
 " coc
 let g:coc_snippet_next='<tab>'
+let g:python3_host_prog='/usr/bin/python'
+
+" ultisnips
+let g:UltiSnipsExpandTrigger='<F8>'
 
 " julia-vim
 let g:julia_indent_align_import=0
@@ -509,12 +517,16 @@ command! -nargs=0 OR   :call     CocAction('runCommand', 'editor.action.organize
 "      \ 'texthl': 'NeomakeInfo'
 "      \ }
 
+set fillchars+=vert:│
+let g:indentLine_char = '▏'
+
 " neomake colors
 " highlight NeomakeError cterm=bold ctermfg=darkred
 " hi NeomakeVirtualtextError cterm=bold ctermfg=darkred
 " hi NeomakeWarning cterm=bold ctermfg=7
 " hi NeomakeVirtualtextWarning cterm=bold ctermfg=7
 hi clear SignColumn
+hi VertSplit cterm=NONE gui=NONE
 " cursorline
 hi clear CursorLineNr
 hi CursorLine cterm=none ctermbg=0
@@ -537,4 +549,9 @@ hi diffChanged ctermfg=7
 hi diffRemoved ctermfg=darkred
 " tagbar highlight color for current tag
 hi TagbarHighlight cterm=bold ctermfg=15 ctermbg=8
+" indent line
+" let g:indentLine_setConceal = 0
+" let g:indentLine_setColors = 0
+" let g:indentLine_bgcolor_term = 'none'
+" let g:indentLine_bgcolor_gui = 'none'
 "}}}
